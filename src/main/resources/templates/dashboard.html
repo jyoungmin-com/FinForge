@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinForge | Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 동일 스타일은 생략하지 않고 동일하게 복사하여 유지 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f4f6fb;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .left-panel {
+            background: #f4f6fb;
+            width: 40%;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex: 1;
+            /* left-panel이 남은 공간을 차지하도록 설정 */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 70px;
+        }
+
+        .logo img {
+            width: 200px;
+            margin-right: 8px;
+        }
+
+        .logo span {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2b2d42;
+        }
+
+        .description {
+            margin-top: 32px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #4b5563;
+        }
+
+        .right-panel {
+            width: 60%;
+            padding: 20px 40px 20px 40px;
+            display: flex;
+            gap: 20px;
+            /* mid, right container 사이 간격 */
+            flex-direction: column;
+            /* mid, right container 수평배치*/
+            justify-content: center;
+            animation: slideIn 0.6s ease-in-out;
+            flex: 5;
+            /* right-panel이 남은 공간을 차지하도록 설정 */
+        }
+
+        h2 {
+            text-align: left;
+            margin-bottom: 24px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .terms input {
+            margin-right: 8px;
+            margin-top: 3px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e40af;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 90%;
+                height: auto;
+            }
+
+            .left-panel,
+            .right-panel {
+                width: 100%;
+                padding: 24px;
+            }
+
+            .left-panel {
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        .mid-container {
+            display: flex;
+            flex: 2;
+            /* mid-container이 남은 공간을 차지하도록 설정 */
+            padding: 20px;
+            /* right-container 내부 여백 */
+            flex-direction: column;
+            /* 세로 방향으로 정렬 */
+        }
+
+        .right-container {
+            display: flex;
+            flex: 1;
+            /* right-container이 남은 공간을 차지하도록 설정 */
+            padding: 20px;
+            /* right-container 내부 여백 */
+            flex-direction: column;
+            /* 세로 방향으로 정렬 */
+        }
+
+        .summary,
+        .asset-summary,
+        .recent-transactions,
+        .notification {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #4b5563;
+        }
+
+        span {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2b2d42;
+        }
+
+        .content-row {
+            display: flex;
+            flex-direction: row;
+            /* 이 부분은 기존과 동일하게 수평 정렬 */
+            gap: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .header h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2b2d42;
+            margin-bottom: 16px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        .profile-img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 8px;
+        }
+
+        .profile-header {
+            position: absolute;
+            top: 24px;
+            right: 40px;
+            z-index: 1000;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="profile-header">
+    <div class="profile">
+        <span>finFonce</span>
+        <img src="logo2.png" alt="profile" class="profile-img">
+    </div>
+</div>
+<div class="container">
+    <div class="left-panel">
+        a
+    </div>
+
+
+    <div class="right-panel">
+
+        <div class="header">
+            <h3>Dashboard</h3>
+        </div>
+
+
+        <div class="content-row">
+            <div class="mid-container">
+
+
+                <div class="summary">
+                    <span>Welcome, User</span>
+                    <p>Portfolio Value</p>
+                </div>
+
+                <div class="asset-summary">
+                    <span>Asset Summary</span>
+                    <p>Stocks: $10,000</p>
+                    <p>Bonds: $5,000</p>
+                    <p>Real Estate: $15,000</p>
+                </div>
+            </div>
+
+
+            <div class="right-container">
+                <div class="recent-transactions">
+                    <p>Recent Transactions</p>
+                    <p>Transaction 1</p>
+                    <p>Transaction 2</p>
+                    <p>Transaction 3</p>
+                </div>
+
+                <div class="notification">
+                    <p>Notifications</p>
+                    <p>Notification 1</p>
+                    <p>Notification 2</p>
+                    <p>Notification 3</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+
+</html>
