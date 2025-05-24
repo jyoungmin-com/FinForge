@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <title>finForge | Shared Wallets</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="content-row">
+        <div class="mid-container">
+            <!-- Create Wallet Button -->
+            <div class="create-wallet-section">
+                <button class="create-wallet-btn" onclick="openCreateModal()">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                        <use href="/static/icons/action-icons.svg#add-icon"></use>
+                    </svg>
+                    <span>Create New Wallet</span>
+                </button>
+            </div>
+
+            <!-- Active Wallets -->
+            <div class="card">
+                <h3 class="section-title">Your Wallets</h3>
+
+                <!-- Wallet Item 1 -->
+                <div class="wallet-item" onclick="openWalletDetails('1')">
+                    <div class="wallet-info">
+                        <div class="wallet-icon">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                                <use href="/static/icons/asset-icons.svg#wallet-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="wallet-details">
+                            <h4>Household Expenses</h4>
+                            <p>3 members · Created May 1, 2025</p>
+                        </div>
+                    </div>
+                    <div class="wallet-balance">
+                        <div class="balance-amount">$2,450.00</div>
+                        <div class="balance-label">Total Balance</div>
+                    </div>
+                </div>
+
+                <!-- Wallet Item 2 -->
+                <div class="wallet-item" onclick="openWalletDetails('2')">
+                    <div class="wallet-info">
+                        <div class="wallet-icon vacation">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                                <use href="/static/icons/asset-icons.svg#wallet-icon-vacation"></use>
+                            </svg>
+                        </div>
+                        <div class="wallet-details">
+                            <h4>Europe Trip 2025</h4>
+                            <p>5 members · Created Mar 15, 2025</p>
+                        </div>
+                    </div>
+                    <div class="wallet-balance">
+                        <div class="balance-amount">$8,750.50</div>
+                        <div class="balance-label">Total Balance</div>
+                    </div>
+                </div>
+
+                <!-- Wallet Item 3 -->
+                <div class="wallet-item" onclick="openWalletDetails('3')">
+                    <div class="wallet-info">
+                        <div class="wallet-icon project">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                                <use href="/static/icons/asset-icons.svg#wallet-icon-project"></use>
+                            </svg>
+                        </div>
+                        <div class="wallet-details">
+                            <h4>Startup Fund</h4>
+                            <p>4 members · Created Jan 10, 2025</p>
+                        </div>
+                    </div>
+                    <div class="wallet-balance">
+                        <div class="balance-amount">$15,320.00</div>
+                        <div class="balance-label">Total Balance</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected Wallet Details -->
+            <div class="card wallet-detail-card" id="walletDetailCard" style="display: none;">
+                <div class="wallet-detail-header">
+                    <h3 class="section-title">Household Expenses</h3>
+                    <button class="add-expense-btn" onclick="openExpenseModal()">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+                            <use href="/static/icons/action-icons.svg#add-icon"></use>
+                        </svg>
+                        <span>Add Expense</span>
+                    </button>
+                </div>
+
+                <!-- Members Overview -->
+                <div class="members-overview">
+                    <div class="member-item">
+                        <div class="member-avatar owner">JD</div>
+                        <div class="member-info">
+                            <div class="member-name">John Doe (You)</div>
+                            <div class="member-role">Owner</div>
+                        </div>
+                        <div class="member-contribution">
+                            <div class="contribution-amount">$1,250.00</div>
+                            <div class="contribution-percentage">51%</div>
+                        </div>
+                    </div>
+                    <div class="member-item">
+                        <div class="member-avatar">SE</div>
+                        <div class="member-info">
+                            <div class="member-name">Sarah Evans</div>
+                            <div class="member-role">Member</div>
+                        </div>
+                        <div class="member-contribution">
+                            <div class="contribution-amount">$850.00</div>
+                            <div class="contribution-percentage">35%</div>
+                        </div>
+                    </div>
+                    <div class="member-item">
+                        <div class="member-avatar">MJ</div>
+                        <div class="member-info">
+                            <div class="member-name">Michael Johnson</div>
+                            <div class="member-role">Member</div>
+                        </div>
+                        <div class="member-contribution">
+                            <div class="contribution-amount">$350.00</div>
+                            <div class="contribution-percentage">14%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Expenses -->
+                <h4 class="subsection-title">Recent Expenses</h4>
+                <div class="expenses-list">
+                    <div class="expense-item">
+                        <div class="expense-icon groceries">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                                <use href="/static/icons/asset-icons.svg#groceries-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="expense-details">
+                            <div class="expense-title">Weekly Groceries</div>
+                            <div class="expense-meta">
+                                <span class="expense-user">by Sarah Evans</span>
+                                <span class="expense-date">Today, 2:30 PM</span>
+                            </div>
+                        </div>
+                        <div class="expense-amount">-$125.50</div>
+                    </div>
+                    <div class="expense-item">
+                        <div class="expense-icon utilities">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                                <use href="/static/icons/asset-icons.svg#utilities-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="expense-details">
+                            <div class="expense-title">Electric Bill</div>
+                            <div class="expense-meta">
+                                <span class="expense-user">by John Doe</span>
+                                <span class="expense-date">Yesterday, 9:15 AM</span>
+                            </div>
+                        </div>
+                        <div class="expense-amount">-$85.00</div>
+                    </div>
+                    <div class="expense-item">
+                        <div class="expense-icon dining">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                                <use href="/static/icons/asset-icons.svg#dining-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="expense-details">
+                            <div class="expense-title">Restaurant - Italian Place</div>
+                            <div class="expense-meta">
+                                <span class="expense-user">by Michael Johnson</span>
+                                <span class="expense-date">May 22, 7:45 PM</span>
+                            </div>
+                        </div>
+                        <div class="expense-amount">-$67.20</div>
+                    </div>
+                    <div class="expense-item">
+                        <div class="expense-icon transport">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                                <use href="/static/icons/asset-icons.svg#transport-icon"></use>
+                            </svg>
+                        </div>
+                        <div class="expense-details">
+                            <div class="expense-title">Gas Station</div>
+                            <div class="expense-meta">
+                                <span class="expense-user">by John Doe</span>
+                                <span class="expense-date">May 21, 4:20 PM</span>
+                            </div>
+                        </div>
+                        <div class="expense-amount">-$45.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-container">
+            <!-- Wallet Statistics -->
+            <div class="card">
+                <h3 class="section-title">Wallet Overview</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Total Wallets</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">$26,520</div>
+                        <div class="stat-label">Total Balance</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">23</div>
+                        <div class="stat-label">Total Members</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">156</div>
+                        <div class="stat-label">Transactions</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spending Categories -->
+            <div class="card">
+                <h3 class="section-title">Spending by Category</h3>
+                <div class="category-list">
+                    <div class="category-item">
+                        <div class="category-info">
+                            <div class="category-icon groceries">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16"
+                                     height="16">
+                                    <use href="/static/icons/asset-icons.svg#groceries-icon"></use>
+                                </svg>
+                            </div>
+                            <span class="category-name">Groceries</span>
+                        </div>
+                        <div class="category-amount">$450.25</div>
+                    </div>
+                    <div class="category-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 35%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="category-item">
+                        <div class="category-info">
+                            <div class="category-icon utilities">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16"
+                                     height="16">
+                                    <use href="/static/icons/asset-icons.svg#utilities-icon"></use>
+                                </svg>
+                            </div>
+                            <span class="category-name">Utilities</span>
+                        </div>
+                        <div class="category-amount">$320.00</div>
+                    </div>
+                    <div class="category-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 25%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="category-item">
+                        <div class="category-info">
+                            <div class="category-icon dining">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16"
+                                     height="16">
+                                    <use href="/static/icons/asset-icons.svg#dining-icon"></use>
+                                </svg>
+                            </div>
+                            <span class="category-name">Dining</span>
+                        </div>
+                        <div class="category-amount">$280.40</div>
+                    </div>
+                    <div class="category-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 22%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="category-item">
+                        <div class="category-info">
+                            <div class="category-icon transport">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16"
+                                     height="16">
+                                    <use href="/static/icons/asset-icons.svg#transport-icon"></use>
+                                </svg>
+                            </div>
+                            <span class="category-name">Transport</span>
+                        </div>
+                        <div class="category-amount">$230.00</div>
+                    </div>
+                    <div class="category-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 18%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+                <h3 class="section-title">Quick Actions</h3>
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="openInviteModal()">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                            <use href="/static/icons/action-icons.svg#invite-icon"></use>
+                        </svg>
+                        <span>Invite Member</span>
+                    </button>
+                    <button class="quick-action-btn" onclick="exportReport()">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                            <use href="/static/icons/action-icons.svg#download-icon"></use>
+                        </svg>
+                        <span>Export Report</span>
+                    </button>
+                    <button class="quick-action-btn" onclick="viewAllTransactions()">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                            <use href="/static/icons/asset-icons.svg#all-transactions"></use>
+                        </svg>
+                        <span>All Transactions</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

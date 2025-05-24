@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+<head>
+    <title>finForge | Transfer</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="content-row">
+        <div class="mid-container">
+            <!-- Balance Card -->
+            <div class="card balance-card">
+                <h3>Available Balance</h3>
+                <div class="balance-amount">$52,450.00</div>
+                <div class="balance-actions">
+                    <button class="balance-button">View History</button>
+                    <button class="balance-button">Add Funds</button>
+                </div>
+            </div>
+
+            <!-- Transfer Form -->
+            <div class="card">
+                <h3 class="section-title">Send Money</h3>
+
+                <!-- Alert Message (shown when needed) -->
+                <!-- <div class="alert-message error">
+                    <div class="alert-icon">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                            <use href="/static/icons/notification-icons.svg#alert"></use>
+                        </svg>
+                    </div>
+                    <span>Insufficient balance. You need $2,550 more to complete this transfer.</span>
+                </div> -->
+
+                <form class="transfer-form">
+                    <!-- Recipient Search -->
+                    <div class="form-group">
+                        <label class="form-label">Recipient</label>
+                        <div class="recipient-search">
+                            <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                 width="20" height="20">
+                                <use href="/static/icons/action-icons.svg#search-icon"></use>
+                            </svg>
+                            <input type="text" class="search-input" placeholder="Search by name or email..."
+                                   id="recipientSearch" autocomplete="off">
+
+                            <!-- Suggestions Dropdown -->
+                            <div class="recipient-suggestions" id="recipientSuggestions">
+                                <div class="suggestion-item">
+                                    <div class="suggestion-avatar">SE</div>
+                                    <div class="suggestion-info">
+                                        <div class="suggestion-name">Sarah Evans</div>
+                                        <div class="suggestion-email">sarah.evans@email.com</div>
+                                    </div>
+                                </div>
+                                <div class="suggestion-item">
+                                    <div class="suggestion-avatar">MJ</div>
+                                    <div class="suggestion-info">
+                                        <div class="suggestion-name">Michael Johnson</div>
+                                        <div class="suggestion-email">m.johnson@email.com</div>
+                                    </div>
+                                </div>
+                                <div class="suggestion-item">
+                                    <div class="suggestion-avatar">EL</div>
+                                    <div class="suggestion-info">
+                                        <div class="suggestion-name">Emma Lee</div>
+                                        <div class="suggestion-email">emma.lee@email.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Amount Input -->
+                    <div class="form-group">
+                        <label class="form-label">Amount</label>
+                        <div class="amount-input-wrapper">
+                            <span class="currency-symbol">$</span>
+                            <input type="number" class="form-input amount-input" placeholder="0.00" step="0.01"
+                                   min="0">
+                        </div>
+                        <div class="quick-amounts">
+                            <button type="button" class="quick-amount-btn" data-amount="100">$100</button>
+                            <button type="button" class="quick-amount-btn" data-amount="500">$500</button>
+                            <button type="button" class="quick-amount-btn" data-amount="1000">$1,000</button>
+                            <button type="button" class="quick-amount-btn" data-amount="5000">$5,000</button>
+                        </div>
+                    </div>
+
+                    <!-- Note -->
+                    <div class="form-group">
+                        <label class="form-label">Note (Optional)</label>
+                        <textarea class="form-textarea"
+                                  placeholder="Add a note for the recipient..."></textarea>
+                    </div>
+
+                    <!-- Transfer Summary -->
+                    <div class="transfer-summary">
+                        <div class="summary-row">
+                            <span>Transfer Amount</span>
+                            <span id="summaryAmount">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Transfer Fee</span>
+                            <span>$0.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total Amount</span>
+                            <span id="summaryTotal">$0.00</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="transfer-button">Send Money</button>
+                </form>
+            </div>
+
+            <!-- Recent Transfers -->
+            <div class="card">
+                <h3 class="section-title">Recent Transfers</h3>
+                <div class="recent-transfers">
+                    <div class="transfer-item">
+                        <div class="transfer-info">
+                            <div class="transfer-avatar">SE</div>
+                            <div class="transfer-details">
+                                <div class="transfer-name">Sarah Evans</div>
+                                <div class="transfer-date">May 22, 2025 at 3:45 PM</div>
+                            </div>
+                        </div>
+                        <div class="transfer-amount">
+                            <div class="amount-value sent">-$250.00</div>
+                            <div class="transfer-status completed">Completed</div>
+                        </div>
+                    </div>
+                    <div class="transfer-item">
+                        <div class="transfer-info">
+                            <div class="transfer-avatar">MJ</div>
+                            <div class="transfer-details">
+                                <div class="transfer-name">Michael Johnson</div>
+                                <div class="transfer-date">May 21, 2025 at 11:20 AM</div>
+                            </div>
+                        </div>
+                        <div class="transfer-amount">
+                            <div class="amount-value received">+$1,200.00</div>
+                            <div class="transfer-status completed">Completed</div>
+                        </div>
+                    </div>
+                    <div class="transfer-item">
+                        <div class="transfer-info">
+                            <div class="transfer-avatar">EL</div>
+                            <div class="transfer-details">
+                                <div class="transfer-name">Emma Lee</div>
+                                <div class="transfer-date">May 20, 2025 at 6:15 PM</div>
+                            </div>
+                        </div>
+                        <div class="transfer-amount">
+                            <div class="amount-value sent">-$75.50</div>
+                            <div class="transfer-status failed">Failed</div>
+                        </div>
+                    </div>
+                    <div class="transfer-item">
+                        <div class="transfer-info">
+                            <div class="transfer-avatar">RW</div>
+                            <div class="transfer-details">
+                                <div class="transfer-name">Robert Williams</div>
+                                <div class="transfer-date">May 19, 2025 at 2:30 PM</div>
+                            </div>
+                        </div>
+                        <div class="transfer-amount">
+                            <div class="amount-value sent">-$500.00</div>
+                            <div class="transfer-status completed">Completed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-container">
+            <!-- Frequent Contacts -->
+            <div class="card">
+                <h3 class="section-title">Frequent Contacts</h3>
+                <div class="contacts-list">
+                    <div class="contact-item" onclick="selectContact('Sarah Evans', 'sarah.evans@email.com')">
+                        <div class="contact-avatar">SE</div>
+                        <div class="contact-info">
+                            <div class="contact-name">Sarah Evans</div>
+                            <div class="contact-last-transfer">Last transfer: 2 days ago</div>
+                        </div>
+                    </div>
+                    <div class="contact-item" onclick="selectContact('Michael Johnson', 'm.johnson@email.com')">
+                        <div class="contact-avatar">MJ</div>
+                        <div class="contact-info">
+                            <div class="contact-name">Michael Johnson</div>
+                            <div class="contact-last-transfer">Last transfer: 3 days ago</div>
+                        </div>
+                    </div>
+                    <div class="contact-item" onclick="selectContact('Emma Lee', 'emma.lee@email.com')">
+                        <div class="contact-avatar">EL</div>
+                        <div class="contact-info">
+                            <div class="contact-name">Emma Lee</div>
+                            <div class="contact-last-transfer">Last transfer: 4 days ago</div>
+                        </div>
+                    </div>
+                    <div class="contact-item"
+                         onclick="selectContact('Robert Williams', 'r.williams@email.com')">
+                        <div class="contact-avatar">RW</div>
+                        <div class="contact-info">
+                            <div class="contact-name">Robert Williams</div>
+                            <div class="contact-last-transfer">Last transfer: 5 days ago</div>
+                        </div>
+                    </div>
+                    <div class="contact-item" onclick="selectContact('Jessica Brown', 'j.brown@email.com')">
+                        <div class="contact-avatar">JB</div>
+                        <div class="contact-info">
+                            <div class="contact-name">Jessica Brown</div>
+                            <div class="contact-last-transfer">Last transfer: 1 week ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transfer Limits -->
+            <div class="card">
+                <h3 class="section-title">Transfer Limits</h3>
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-size: 13px; color: #6c757d;">Daily Limit</span>
+                            <span style="font-size: 13px; font-weight: 600;">$2,750 / $10,000</span>
+                        </div>
+                        <div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div style="background: #2563eb; height: 100%; width: 27.5%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-size: 13px; color: #6c757d;">Monthly Limit</span>
+                            <span style="font-size: 13px; font-weight: 600;">$15,250 / $50,000</span>
+                        </div>
+                        <div style="background: #e0e0e0; height: 8px; border-radius: 4px; overflow: hidden;">
+                            <div style="background: #2563eb; height: 100%; width: 30.5%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
