@@ -1,0 +1,246 @@
+.welcome-card {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: white;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.welcome-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.welcome-card p {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.portfolio-value {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.value-change {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.value-change.positive {
+    color: #10b981;
+}
+
+.value-change.negative {
+    color: #ef4444;
+}
+
+.asset-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.asset-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.asset-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.asset-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.asset-icon.stocks {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.asset-icon.bonds {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+.asset-icon.real-estate {
+    background: #d1fae5;
+    color: #10b981;
+}
+
+.asset-details h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2b2d42;
+    margin-bottom: 2px;
+}
+
+.asset-details p {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.asset-value {
+    text-align: right;
+}
+
+.asset-value .amount {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2b2d42;
+}
+
+.asset-value .percentage {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-type {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.transaction-type.buy {
+    background: #2563eb;
+}
+
+.transaction-type.sell {
+    background: #f59e0b;
+}
+
+.transaction-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.transaction-details {
+    flex: 1;
+}
+
+.transaction-details h5 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2b2d42;
+    margin-bottom: 2px;
+}
+
+.transaction-details p {
+    font-size: 11px;
+    color: #6c757d;
+}
+
+.transaction-amount {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.transaction-amount.positive {
+    color: #10b981;
+}
+
+.transaction-amount.negative {
+    color: #ef4444;
+}
+
+.notification-item {
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.notification-item:last-child {
+    margin-bottom: 0;
+}
+
+.notification-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.notification-icon.info {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.notification-icon.success {
+    background: #d1fae5;
+    color: #10b981;
+}
+
+.notification-icon.warning {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+.notification-content h5 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2b2d42;
+    margin-bottom: 4px;
+}
+
+.notification-content p {
+    font-size: 12px;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+.notification-time {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+    .portfolio-value {
+        font-size: 28px;
+    }
+
+    .welcome-card {
+        min-height: 150px;
+    }
+}

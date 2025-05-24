@@ -1,0 +1,12 @@
+.terms {
+    display: flex;
+    align-items: flex-start;
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.terms input {
+    margin-right: 8px;
+    margin-top: 3px;
+}

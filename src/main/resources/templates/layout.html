@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title} ?: 'finForge'">finForge</title>
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <!-- Common styles -->
+  <link rel="stylesheet" th:href="@{/css/commonStyle.css}"/>
+  <!-- Page-specific styles -->
+  <link rel="stylesheet" th:href="@{/css/{pageStyle}.css(pageStyle=${pageStyle})}" th:if="${pageStyle}"/>
+  <!-- Lucide Icons -->
+  <link rel="stylesheet" href="https://unpkg.com/lucide@latest/font/lucide.css">
+
+  <!-- Page-specific scripts -->
+  <script th:src="@{/js/{pageScript}.js(pageScript=${pageScript})}" th:if="${pageScript}"></script>
+
+  <!-- Additional head content -->
+  <th:block layout:fragment="head"></th:block>
+</head>
+
+<body>
+<div class="container">
+  <!-- Left Panel - Navigation -->
+  <div class="left-panel">
+    <div class="logo">
+      <img th:src="@{/images/LOGO-full.png}" alt="finForge Logo">
+    </div>
+    <nav class="nav-menu">
+      <a th:href="@{/dashboard}" class="nav-item" th:classappend="${currentPage == 'dashboard'} ? 'active' : ''">
+        <svg class="nav-icon">
+          <use th:href="@{/icons/nav-icons.svg#dashboard}"></use>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a th:href="@{/stocks}" class="nav-item" th:classappend="${currentPage == 'stocks'} ? 'active' : ''">
+        <svg class="nav-icon">
+          <use th:href="@{/icons/nav-icons.svg#stocks}"></use>
+        </svg>
+        <span>Stocks</span>
+      </a>
+      <a th:href="@{/transfer}" class="nav-item" th:classappend="${currentPage == 'transfer'} ? 'active' : ''">
+        <svg class="nav-icon">
+          <use th:href="@{/icons/nav-icons.svg#transfer}"></use>
+        </svg>
+        <span>Transfer</span>
+      </a>
+      <a th:href="@{/shared-wallets}" class="nav-item" th:classappend="${currentPage == 'sharedWallets'} ? 'active' : ''">
+        <svg class="nav-icon">
+          <use th:href="@{/icons/nav-icons.svg#sharedwallets}"></use>
+        </svg>
+        <span>Shared Wallets</span>
+      </a>
+      <a th:href="@{/notifications}" class="nav-item" th:classappend="${currentPage == 'notifications'} ? 'active' : ''">
+        <svg class="nav-icon">
+          <use th:href="@{/icons/nav-icons.svg#notifications}"></use>
+        </svg>
+        <span>Notifications</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Right Panel - Content -->
+  <div class="right-panel">
+    <!-- Header -->
+    <div class="header">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <use th:href="@{/icons/header-icons.svg#mobile-menu}"></use>
+          </svg>
+        </button>
+        <h2 th:text="${pageTitle}">Page title</h2>
+      </div>
+      <div class="profile-header">
+        <div class="header-icons">
+          <button class="icon-button" title="Notifications">
+            <svg class="header-icon">
+              <use th:href="@{/icons/header-icons.svg#notifications}"></use>
+            </svg>
+            <span class="notification-badge">3</span>
+          </button>
+          <button class="icon-button" title="Messages">
+            <svg class="header-icon">
+              <use th:href="@{/icons/header-icons.svg#messages}"></use>
+            </svg>
+            <span class="notification-badge">5</span>
+          </button>
+        </div>
+        <div class="profile" onclick="toggleProfileDropdown()">
+          <span>John Doe</span>
+          <div class="profile-img">JD</div>
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+            <use th:href="@{/icons/header-icons.svg#dropdown}"></use>
+          </svg>
+        </div>
+        <div class="profile-dropdown" id="profileDropdown">
+          <a href="#" class="dropdown-item">
+            <svg class="header-icon">
+              <use th:href="@{/icons/header-icons.svg#myprofile}"></use>
+            </svg>
+            <span>My Profile</span>
+          </a>
+          <a href="#" class="dropdown-item">
+            <svg class="header-icon">
+              <use th:href="@{/icons/header-icons.svg#settings}"></use>
+            </svg>
+            <span>Settings</span>
+          </a>
+          <a href="#" class="dropdown-item">
+            <svg class="header-icon">
+              <use th:href="@{/icons/header-icons.svg#helpcenter}"></use>
+            </svg>
+            <span>Help Center</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <svg class="header-icon">
+              <use th:href="@{/icons/header-icons.svg#logout}"></use>
+            </svg>
+            <span>Log out</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div layout:fragment="content">
+        <!-- Page specific content will be inserted here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Navigation -->
+<div class="mobile-nav-overlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-nav">
+  <div class="mobile-nav-header">
+    <img src="/images/LOGO-full.png" alt="finForge Logo" style="height: 30px;">
+    <button class="mobile-nav-close" onclick="toggleMobileMenu()">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+        <use href="/static/icons/nav-icons.svg#mobile-close"></use>
+      </svg>
+    </button>
+  </div>
+  <nav class="mobile-nav-menu nav-menu">
+    <a th:href="@{/dashboard}" class="nav-item" th:classappend="${currentPage == 'dashboard'} ? 'active' : ''" onclick="toggleMobileMenu()">
+                <span class="nav-icon">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <use th:href="@{/icons/nav-icons.svg#mobile-dashboard}"></use>
+                    </svg>
+                </span>
+      <span>Dashboard</span>
+    </a>
+    <a th:href="@{/stocks}" class="nav-item" th:classappend="${currentPage == 'stocks'} ? 'active' : ''" onclick="toggleMobileMenu()">
+                <span class="nav-icon">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <use th:href="@{/icons/nav-icons.svg#mobile-stocks}"></use>
+                    </svg>
+                </span>
+      <span>Stocks</span>
+    </a>
+    <a th:href="@{/transfer}" class="nav-item" th:classappend="${currentPage == 'transfer'} ? 'active' : ''" onclick="toggleMobileMenu()">
+                <span class="nav-icon">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <use th:href="@{/icons/nav-icons.svg#mobile-transfer}"></use>
+                    </svg>
+                </span>
+      <span>Transfer</span>
+    </a>
+    <a th:href="@{/shared-wallets}" class="nav-item" th:classappend="${currentPage == 'sharedWallets'} ? 'active' : ''" onclick="toggleMobileMenu()">
+                <span class="nav-icon">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <use th:href="@{/icons/nav-icons.svg#mobile-sharedwallets}"></use>
+                    </svg>
+                </span>
+      <span>Shared Wallets</span>
+    </a>
+    <a th:href="@{/notifications}" class="nav-item" th:classappend="${currentPage == 'notifications'} ? 'active' : ''" onclick="toggleMobileMenu()">
+                <span class="nav-icon">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <use th:href="@{/icons/nav-icons.svg#mobile-notifications}"></use>
+                    </svg>
+                </span>
+      <span>Notifications</span>
+    </a>
+  </nav>
+</div>
+
+<!-- Common Scripts -->
+<script th:src="@{/js/commonScript.js}"></script>
+<!-- Additional scripts -->
+<th:block layout:fragment="scripts"></th:block>
+
+</body>
+</html>

@@ -1,0 +1,462 @@
+.create-wallet-section {
+    margin-bottom: 24px;
+}
+
+.create-wallet-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    justify-content: center;
+}
+
+.create-wallet-btn:hover {
+    background: #1e40af;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.wallet-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.wallet-item:hover {
+    background: #e9ecef;
+    transform: translateX(4px);
+}
+
+.wallet-item:last-child {
+    margin-bottom: 0;
+}
+
+.wallet-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.wallet-icon {
+    width: 48px;
+    height: 48px;
+    background: #dbeafe;
+    color: #2563eb;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wallet-icon.vacation {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+.wallet-icon.project {
+    background: #d1fae5;
+    color: #10b981;
+}
+
+.wallet-details h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2b2d42;
+    margin-bottom: 4px;
+}
+
+.wallet-details p {
+    font-size: 13px;
+    color: #6c757d;
+}
+
+.wallet-balance {
+    text-align: right;
+}
+
+.balance-amount {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2b2d42;
+}
+
+.balance-label {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 2px;
+}
+
+.wallet-detail-card {
+    margin-top: 24px;
+}
+
+.wallet-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.add-expense-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-expense-btn:hover {
+    background: #1e40af;
+}
+
+.members-overview {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.member-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.member-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.member-item:first-child {
+    padding-top: 0;
+}
+
+.member-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e0e7ff;
+    color: #4338ca;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-right: 12px;
+}
+
+.member-avatar.owner {
+    background: #2563eb;
+    color: white;
+}
+
+.member-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.member-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2b2d42;
+}
+
+.member-role {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.member-contribution {
+    text-align: right;
+}
+
+.contribution-amount {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2b2d42;
+}
+
+.contribution-percentage {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.subsection-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2b2d42;
+    margin-bottom: 16px;
+    margin-top: 24px;
+}
+
+.expenses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.expense-item {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.expense-item:hover {
+    background: #e9ecef;
+}
+
+.expense-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+.expense-icon.groceries {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.expense-icon.utilities {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+.expense-icon.dining {
+    background: #fce7f3;
+    color: #ec4899;
+}
+
+.expense-icon.transport {
+    background: #d1fae5;
+    color: #10b981;
+}
+
+.expense-details {
+    flex: 1;
+}
+
+.expense-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2b2d42;
+    margin-bottom: 4px;
+}
+
+.expense-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.expense-amount {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ef4444;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2b2d42;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 4px;
+}
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.category-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-icon.groceries {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.category-icon.utilities {
+    background: #fef3c7;
+    color: #f59e0b;
+}
+
+.category-icon.dining {
+    background: #fce7f3;
+    color: #ec4899;
+}
+
+.category-icon.transport {
+    background: #d1fae5;
+    color: #10b981;
+}
+
+.category-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.category-amount {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2b2d42;
+}
+
+.category-progress {
+    margin-top: 8px;
+}
+
+.progress-bar {
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #2563eb;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.quick-action-btn:hover {
+    background: #e9ecef;
+    border-color: #cbd5e1;
+    color: #2563eb;
+}
+
+.quick-action-btn svg {
+    color: #6c757d;
+}
+
+.quick-action-btn:hover svg {
+    color: #2563eb;
+}
+
+@media (max-width: 768px) {
+    .wallet-detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .add-expense-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .expense-meta {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .member-item {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .member-contribution {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 8px;
+        border-top: 1px solid #f0f0f0;
+    }
+}

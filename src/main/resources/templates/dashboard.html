@@ -1,1105 +1,164 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" 
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinForge | Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet>
-    <!-- Lucide Icons -->
-    <link rel="stylesheet" href="https://unpkg.com/lucide@latest/font/lucide.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: #f4f6fb;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: row;
-            width: 90%;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            animation: fadeIn 0.6s ease-in-out;
-            height: 85%;
-        }
-
-        .left-panel {
-            background: #f4f6fb;
-            width: 15%;
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            flex: 1;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            margin-bottom: 50px;
-        }
-
-        .logo img {
-            width: 180px;
-        }
-
-        .nav-menu {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .nav-item {
-            padding: 12px 16px;
-            border-radius: 8px;
-            color: #6c757d;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .nav-item:hover {
-            background: white;
-            color: #2563eb;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .nav-item.active {
-            background: white;
-            color: #2563eb;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .nav-icon {
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-icon svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .right-panel {
-            width: 85%;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            animation: slideIn 0.6s ease-in-out;
-            flex: 5;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 40px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .header h2 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #2b2d42;
-            margin: 0;
-        }
-
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            position: relative;
-        }
-
-        .header-icons {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .icon-button {
-            position: relative;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #f8f9fa;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: #6c757d;
-        }
-
-        .icon-button:hover {
-            background: #e9ecef;
-            color: #2563eb;
-        }
-
-        .icon-button svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 11px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid white;
-        }
-
-        .profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-            color: #4b5563;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: background 0.3s ease;
-        }
-
-        .profile:hover {
-            background: #f8f9fa;
-        }
-
-        .profile-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 8px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e5e7eb;
-            width: 200px;
-            display: none;
-            z-index: 1000;
-        }
-
-        .profile-dropdown.active {
-            display: block;
-        }
-
-        .dropdown-item {
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #4b5563;
-            text-decoration: none;
-            transition: background 0.3s ease;
-            font-size: 14px;
-        }
-
-        .dropdown-item:hover {
-            background: #f8f9fa;
-        }
-
-        .dropdown-item svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background: #e5e7eb;
-            margin: 4px 0;
-        }
-
-        .profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-            color: #4b5563;
-        }
-
-        .profile-img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #2563eb;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-
-        .main-content {
-            padding: 32px 40px;
-            overflow-y: auto;
-            flex: 1;
-        }
-
-        .content-row {
-            display: flex;
-            gap: 24px;
-            height: 100%;
-        }
-
-        .mid-container {
-            display: flex;
-            flex: 2;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .right-container {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .card {
-            background: #fff;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            border: 1px solid #f0f0f0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .welcome-card {
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-            color: white;
-            min-height: 180px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .welcome-card h3 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .welcome-card p {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        .portfolio-value {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .value-change {
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .value-change.positive {
-            color: #10b981;
-        }
-
-        .value-change.negative {
-            color: #ef4444;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #2b2d42;
-            margin-bottom: 20px;
-        }
-
-        .asset-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .asset-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .asset-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .asset-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .asset-icon.stocks {
-            background: #dbeafe;
-            color: #2563eb;
-        }
-
-        .asset-icon.bonds {
-            background: #fef3c7;
-            color: #f59e0b;
-        }
-
-        .asset-icon.real-estate {
-            background: #d1fae5;
-            color: #10b981;
-        }
-
-        .asset-details h4 {
-            font-size: 14px;
-            font-weight: 600;
-            color: #2b2d42;
-            margin-bottom: 2px;
-        }
-
-        .asset-details p {
-            font-size: 12px;
-            color: #6c757d;
-        }
-
-        .asset-value {
-            text-align: right;
-        }
-
-        .asset-value .amount {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2b2d42;
-        }
-
-        .asset-value .percentage {
-            font-size: 12px;
-            color: #6c757d;
-        }
-
-        .transaction-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .transaction-item:last-child {
-            border-bottom: none;
-        }
-
-        .transaction-type {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            margin-right: 12px;
-        }
-
-        .transaction-type.buy {
-            background: #2563eb;
-        }
-
-        .transaction-type.sell {
-            background: #f59e0b;
-        }
-
-        .transaction-info {
-            display: flex;
-            align-items: center;
-            flex: 1;
-        }
-
-        .transaction-details {
-            flex: 1;
-        }
-
-        .transaction-details h5 {
-            font-size: 13px;
-            font-weight: 600;
-            color: #2b2d42;
-            margin-bottom: 2px;
-        }
-
-        .transaction-details p {
-            font-size: 11px;
-            color: #6c757d;
-        }
-
-        .transaction-amount {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .transaction-amount.positive {
-            color: #10b981;
-        }
-
-        .transaction-amount.negative {
-            color: #ef4444;
-        }
-
-        .notification-item {
-            padding: 16px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        .notification-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .notification-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .notification-icon.info {
-            background: #dbeafe;
-            color: #2563eb;
-        }
-
-        .notification-icon.success {
-            background: #d1fae5;
-            color: #10b981;
-        }
-
-        .notification-icon.warning {
-            background: #fef3c7;
-            color: #f59e0b;
-        }
-
-        .notification-content h5 {
-            font-size: 13px;
-            font-weight: 600;
-            color: #2b2d42;
-            margin-bottom: 4px;
-        }
-
-        .notification-content p {
-            font-size: 12px;
-            color: #6c757d;
-            line-height: 1.4;
-        }
-
-        .notification-time {
-            font-size: 11px;
-            color: #9ca3af;
-            margin-top: 4px;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            width: 40px;
-            height: 40px;
-            border: none;
-            background: #f8f9fa;
-            border-radius: 8px;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-btn:hover {
-            background: #e9ecef;
-        }
-
-        .mobile-menu-btn svg {
-            width: 24px;
-            height: 24px;
-            color: #4b5563;
-        }
-
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 280px;
-            height: 100vh;
-            background: white;
-            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .mobile-nav.active {
-            transform: translateX(0);
-        }
-
-        .mobile-nav-header {
-            padding: 20px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .mobile-nav-close {
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            transition: background 0.3s ease;
-        }
-
-        .mobile-nav-close:hover {
-            background: #f8f9fa;
-        }
-
-        .mobile-nav-menu {
-            padding: 20px;
-        }
-
-        .mobile-nav-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-
-        .mobile-nav-overlay.active {
-            display: block;
-        }
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .container {
-                width: 95%;
-                height: 90%;
-            }
-
-            .left-panel {
-                width: 20%;
-            }
-
-            .right-panel {
-                width: 80%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                height: auto;
-                min-height: 100vh;
-            }
-
-            .container {
-                flex-direction: column;
-                width: 100%;
-                height: auto;
-                min-height: 100vh;
-                border-radius: 0;
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-            }
-
-            .mobile-nav {
-                display: block;
-            }
-
-            .left-panel {
-                display: none;
-            }
-
-            .right-panel {
-                width: 100%;
-                height: auto;
-            }
-
-            .header {
-                padding: 16px 20px;
-                position: sticky;
-                top: 0;
-                background: white;
-                z-index: 100;
-            }
-
-            .header h2 {
-                font-size: 20px;
-            }
-
-            .main-content {
-                padding: 20px;
-                height: auto;
-            }
-
-            .content-row {
-                flex-direction: column;
-                height: auto;
-            }
-
-            .mid-container,
-            .right-container {
-                flex: 1;
-                width: 100%;
-            }
-
-            .header-icons {
-                gap: 12px;
-            }
-
-            .icon-button {
-                width: 36px;
-                height: 36px;
-            }
-
-            .profile span {
-                display: none;
-            }
-
-            .portfolio-value {
-                font-size: 28px;
-            }
-
-            .welcome-card {
-                min-height: 150px;
-            }
-        }
-    </style>
+    <title>finForge | Dashboard</title>
 </head>
 
 <body>
-<div class="container">
-    <div class="left-panel">
-        <div class="logo">
-            <img src="/static/images/LOGO-full.png" alt="FinForge Logo">
-        </div>
-        <nav class="nav-menu">
-            <a href="#" class="nav-item active">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                        </svg>
-                    </span>
-                <span>Dashboard</span>
-            </a>
-            <a href="#" class="nav-item">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                    </span>
-                <span>Stocks</span>
-            </a>
-            <a href="#" class="nav-item">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-                        </svg>
-                    </span>
-                <span>Transfer</span>
-            </a>
-            <a href="#" class="nav-item">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                        </svg>
-                    </span>
-                <span>Shared Wallets</span>
-            </a>
-            <a href="#" class="nav-item">
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
-                    </span>
-                <span>Notifications</span>
-            </a>
-
-        </nav>
-    </div>
-
-    <div class="right-panel">
-        <div class="header">
-            <div style="display: flex; align-items: center; gap: 16px;">
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-                <h2>Dashboard</h2>
+<div layout:fragment="content">
+    <div class="content-row">
+        <div class="mid-container">
+            <div class="card welcome-card">
+                <div>
+                    <h3>Welcome back, John!</h3>
+                    <p>Your portfolio is performing well today</p>
+                </div>
+                <div>
+                    <div class="portfolio-value">$124,563.50</div>
+                    <div class="value-change positive">
+                        <span>↑</span>
+                        <span>+$2,345.20 (+1.92%)</span>
+                        <span>Today</span>
+                    </div>
+                </div>
             </div>
-            <div class="profile-header">
-                <div class="header-icons">
-                    <button class="icon-button" title="Notifications">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
-                        <span class="notification-badge">3</span>
-                    </button>
-                    <button class="icon-button" title="Messages">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        <span class="notification-badge">5</span>
-                    </button>
+
+            <div class="card">
+                <h3 class="section-title">Asset Summary</h3>
+                <div class="asset-item">
+                    <div class="asset-info">
+                        <div class="asset-icon stocks">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                                <use href="/static/icons/asset-icons.svg#stocks"></use>
+                            </svg>
+                        </div>
+                        <div class="asset-details">
+                            <h4>Stocks</h4>
+                            <p>45 holdings</p>
+                        </div>
+                    </div>
+                    <div class="asset-value">
+                        <div class="amount">$52,450</div>
+                        <div class="percentage">42.1%</div>
+                    </div>
                 </div>
-                <div class="profile" onclick="toggleProfileDropdown()">
-                    <span>John Doe</span>
-                    <div class="profile-img">JD</div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
+                <div class="asset-item">
+                    <div class="asset-info">
+                        <div class="asset-icon bonds">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                                <use href="/static/icons/asset-icons.svg#bonds"></use>
+                            </svg>
+                        </div>
+                        <div class="asset-details">
+                            <h4>Bonds</h4>
+                            <p>12 holdings</p>
+                        </div>
+                    </div>
+                    <div class="asset-value">
+                        <div class="amount">$35,000</div>
+                        <div class="percentage">28.1%</div>
+                    </div>
                 </div>
-                <div class="profile-dropdown" id="profileDropdown">
-                    <a href="#" class="dropdown-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        <span>My Profile</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <span>Settings</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>Help Center</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                        </svg>
-                        <span>Log out</span>
-                    </a>
+                <div class="asset-item">
+                    <div class="asset-info">
+                        <div class="asset-icon real-estate">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                                <use href="/static/icons/asset-icons.svg#real-estate"></use>
+                            </svg>
+                        </div>
+                        <div class="asset-details">
+                            <h4>Real Estate</h4>
+                            <p>3 properties</p>
+                        </div>
+                    </div>
+                    <div class="asset-value">
+                        <div class="amount">$37,113</div>
+                        <div class="percentage">29.8%</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="main-content">
-            <div class="content-row">
-                <div class="mid-container">
-                    <div class="card welcome-card">
-                        <div>
-                            <h3>Welcome back, John!</h3>
-                            <p>Your portfolio is performing well today</p>
-                        </div>
-                        <div>
-                            <div class="portfolio-value">$124,563.50</div>
-                            <div class="value-change positive">
-                                <span>↑</span>
-                                <span>+$2,345.20 (+1.92%)</span>
-                                <span>Today</span>
-                            </div>
+        <div class="right-container">
+            <div class="card">
+                <h3 class="section-title">Recent Transactions</h3>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-type buy"></div>
+                        <div class="transaction-details">
+                            <h5>Bought AAPL</h5>
+                            <p>10 shares @ $175.50</p>
                         </div>
                     </div>
+                    <div class="transaction-amount negative">-$1,755</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-type sell"></div>
+                        <div class="transaction-details">
+                            <h5>Sold TSLA</h5>
+                            <p>5 shares @ $245.80</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount positive">+$1,229</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-type buy"></div>
+                        <div class="transaction-details">
+                            <h5>Bought MSFT</h5>
+                            <p>8 shares @ $380.25</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount negative">-$3,042</div>
+                </div>
+            </div>
 
-                    <div class="card">
-                        <h3 class="section-title">Asset Summary</h3>
-                        <div class="asset-item">
-                            <div class="asset-info">
-                                <div class="asset-icon stocks">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                    </svg>
-                                </div>
-                                <div class="asset-details">
-                                    <h4>Stocks</h4>
-                                    <p>45 holdings</p>
-                                </div>
-                            </div>
-                            <div class="asset-value">
-                                <div class="amount">$52,450</div>
-                                <div class="percentage">42.1%</div>
-                            </div>
-                        </div>
-                        <div class="asset-item">
-                            <div class="asset-info">
-                                <div class="asset-icon bonds">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                </div>
-                                <div class="asset-details">
-                                    <h4>Bonds</h4>
-                                    <p>12 holdings</p>
-                                </div>
-                            </div>
-                            <div class="asset-value">
-                                <div class="amount">$35,000</div>
-                                <div class="percentage">28.1%</div>
-                            </div>
-                        </div>
-                        <div class="asset-item">
-                            <div class="asset-info">
-                                <div class="asset-icon real-estate">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                                    </svg>
-                                </div>
-                                <div class="asset-details">
-                                    <h4>Real Estate</h4>
-                                    <p>3 properties</p>
-                                </div>
-                            </div>
-                            <div class="asset-value">
-                                <div class="amount">$37,113</div>
-                                <div class="percentage">29.8%</div>
-                            </div>
-                        </div>
+            <div class="card">
+                <h3 class="section-title">Notifications</h3>
+                <div class="notification-item">
+                    <div class="notification-icon info">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+                            <use href="/static/icons/notification-icons.svg#info"></use>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h5>Market Update</h5>
+                        <p>S&P 500 reached new all-time high</p>
+                        <div class="notification-time">2 hours ago</div>
                     </div>
                 </div>
-
-                <div class="right-container">
-                    <div class="card">
-                        <h3 class="section-title">Recent Transactions</h3>
-                        <div class="transaction-item">
-                            <div class="transaction-info">
-                                <div class="transaction-type buy"></div>
-                                <div class="transaction-details">
-                                    <h5>Bought AAPL</h5>
-                                    <p>10 shares @ $175.50</p>
-                                </div>
-                            </div>
-                            <div class="transaction-amount negative">-$1,755</div>
-                        </div>
-                        <div class="transaction-item">
-                            <div class="transaction-info">
-                                <div class="transaction-type sell"></div>
-                                <div class="transaction-details">
-                                    <h5>Sold TSLA</h5>
-                                    <p>5 shares @ $245.80</p>
-                                </div>
-                            </div>
-                            <div class="transaction-amount positive">+$1,229</div>
-                        </div>
-                        <div class="transaction-item">
-                            <div class="transaction-info">
-                                <div class="transaction-type buy"></div>
-                                <div class="transaction-details">
-                                    <h5>Bought MSFT</h5>
-                                    <p>8 shares @ $380.25</p>
-                                </div>
-                            </div>
-                            <div class="transaction-amount negative">-$3,042</div>
-                        </div>
+                <div class="notification-item">
+                    <div class="notification-icon success">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+                            <use href="/static/icons/notification-icons.svg#success"></use>
+                        </svg>
                     </div>
-
-                    <div class="card">
-                        <h3 class="section-title">Notifications</h3>
-                        <div class="notification-item">
-                            <div class="notification-icon info">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <div class="notification-content">
-                                <h5>Market Update</h5>
-                                <p>S&P 500 reached new all-time high</p>
-                                <div class="notification-time">2 hours ago</div>
-                            </div>
-                        </div>
-                        <div class="notification-item">
-                            <div class="notification-icon success">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <div class="notification-content">
-                                <h5>Order Executed</h5>
-                                <p>Your AAPL buy order has been filled</p>
-                                <div class="notification-time">5 hours ago</div>
-                            </div>
-                        </div>
-                        <div class="notification-item">
-                            <div class="notification-icon warning">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                </svg>
-                            </div>
-                            <div class="notification-content">
-                                <h5>Ranking Alert</h5>
-                                <p>You're now in top 500 global traders!</p>
-                                <div class="notification-time">Yesterday</div>
-                            </div>
-                        </div>
+                    <div class="notification-content">
+                        <h5>Order Executed</h5>
+                        <p>Your AAPL buy order has been filled</p>
+                        <div class="notification-time">5 hours ago</div>
+                    </div>
+                </div>
+                <div class="notification-item">
+                    <div class="notification-icon warning">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+                            <use href="/static/icons/notification-icons.svg#warning"></use>
+                        </svg>
+                    </div>
+                    <div class="notification-content">
+                        <h5>Ranking Alert</h5>
+                        <p>You're now in top 500 global traders!</p>
+                        <div class="notification-time">Yesterday</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Mobile Navigation -->
-<div class="mobile-nav-overlay" onclick="toggleMobileMenu()"></div>
-<div class="mobile-nav">
-    <div class="mobile-nav-header">
-        <img src="/static/images/LOGO-full.png" alt="FinForge Logo" style="height: 30px;">
-        <button class="mobile-nav-close" onclick="toggleMobileMenu()">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-    </div>
-    <nav class="mobile-nav-menu nav-menu">
-        <a href="#" class="nav-item active" onclick="toggleMobileMenu()">
-                <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                </span>
-            <span>Dashboard</span>
-        </a>
-        <a href="#" class="nav-item" onclick="toggleMobileMenu()">
-                <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                </span>
-            <span>Stocks</span>
-        </a>
-        <a href="#" class="nav-item" onclick="toggleMobileMenu()">
-                <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-                    </svg>
-                </span>
-            <span>Transfer</span>
-        </a>
-        <a href="#" class="nav-item" onclick="toggleMobileMenu()">
-                <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                    </svg>
-                </span>
-            <span>Shared Wallets</span>
-        </a>
-        <a href="#" class="nav-item" onclick="toggleMobileMenu()">
-                <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                </span>
-            <span>Notifications</span>
-        </a>
-
-    </nav>
-</div>
-
-<script>
-    function toggleProfileDropdown() {
-        const dropdown = document.getElementById('profileDropdown');
-        dropdown.classList.toggle('active');
-    }
-
-    function toggleMobileMenu() {
-        const mobileNav = document.querySelector('.mobile-nav');
-        const overlay = document.querySelector('.mobile-nav-overlay');
-
-        mobileNav.classList.toggle('active');
-        overlay.classList.toggle('active');
-
-        // Prevent body scroll when menu is open
-        if (mobileNav.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-    }
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-        const profile = document.querySelector('.profile');
-        const dropdown = document.getElementById('profileDropdown');
-
-        if (!profile.contains(event.target) && !dropdown.contains(event.target)) {
-            dropdown.classList.remove('active');
-        }
-    });
-</script>
 </body>
-
-</html>
+</html> 
